@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palmetto Bay Price Update Story</title>
+    <style>
+        /* Base Styles - Taken directly from your original, highly animated design */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+        }
+
+        /* Story Container - Updated Background Image URL */
+        .story-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            /* USING THE IMAGE URL PROVIDED BY THE USER */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.35)),
+                        url('https://i.imgur.com/p2zWtg3.jpeg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px 30px 70px;
+        }
+
+        .header {
+            text-align: center;
+            z-index: 2;
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .title {
+            font-size: 34px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            font-weight: 300;
+        }
+
+        .price-banner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* Price Badge Styling */
+        .price-reduced-badge {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.6);
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            backdrop-filter: blur(5px);
+        }
+
+        .old-price {
+            font-size: 52px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: line-through;
+            margin-bottom: 15px;
+            animation: fadeOut 1s ease-in forwards;
+            animation-delay: 1s;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.8);
+            font-weight: bold;
+        }
+
+        .new-price {
+            font-size: 76px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0,0,0,0.9);
+            animation: priceReveal 1.2s ease-out forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        .savings {
+            background: rgba(255, 255, 255, 0.95);
+            color: #ff6b6b;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            display: inline-block;
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 2s;
+            opacity: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            z-index: 2;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 18px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-item:nth-child(1) { animation-delay: 2.5s; }
+        .info-item:nth-child(2) { animation-delay: 2.7s; }
+        .info-item:nth-child(3) { animation-delay: 2.9s; }
+        .info-item:nth-child(4) { animation-delay: 3.1s; }
+
+        .info-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+            z-index: 2;
+            animation: fadeInUp 0.6s ease-out forwards;
+            animation-delay: 3.3s;
+            opacity: 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none; /* Ensure link style is removed */
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateY(-20px) scale(0.8); }
+        }
+
+        @keyframes priceReveal {
+            0% { opacity: 0; transform: scale(0.5) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: fall 3s linear infinite;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 1.5s ease-in-out infinite;
+            box-shadow: 0 0 10px white;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% { 
+                opacity: 0; 
+                transform: scale(0);
+                box-shadow: 0 0 0 white;
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1);
+                box-shadow: 0 0 15px white;
+            }
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255, 107, 107, 0.6);
+            border-radius: 50%;
+            animation: pulseRing 2s ease-out infinite;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                width: 200px;
+                height: 200px;
+                opacity: 1;
+            }
+            100% {
+                width: 400px;
+                height: 400px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="story-container">
+        <div class="header">
+            <h1 class="title">Palmetto Bay Luxury Living</h1>
+        </div>
+
+        <div class="price-banner">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring" style="animation-delay: 1.8s;"></div>
+            <div class="price-reduced-badge">⭐ PRICE UPDATE ⭐</div> <div class="old-price">$8,500/M</div>
+            <div class="new-price">$7,500/M</div>
+            <div class="savings">💰 Save $1,000/Month!</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-icon">🛏️</div>
+                <div class="info-value">4</div>
+                <div class="info-label">Bedrooms</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🛁</div>
+                <div class="info-value">3</div>
+                <div class="info-label">Bathrooms</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📐</div>
+                <div class="info-value">2,281</div>
+                <div class="info-label">SQ FT</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">✨</div>
+                <div class="info-value">Modern</div>
+                <div class="info-label">Design</div>
+            </div>
+        </div>
+
+        <a href="https://opesre.com/properties/7761-sw-169th-st-palmetto-bay-fl-us-33157-2f399fcf1c2f548e4b394f59ca4033d1" target="_blank" class="cta-button">
+            📍 CLICK HERE FOR MORE INFO
+        </a>
+    </div>
+
+    <script>
+        // Create sparkles around the new price
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            const banner = document.querySelector('.price-banner');
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 120 + Math.random() * 50;
+            sparkle.style.left = `calc(50% + ${Math.cos(angle) * radius}px)`;
+            sparkle.style.top = `calc(50% + ${Math.sin(angle) * radius}px)`;
+            sparkle.style.animationDelay = Math.random() * 1 + 's';
+            document.querySelector('.story-container').appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 1500);
+        }
+
+        // Create confetti
+        function createConfetti() {
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = ['#ff6b6b', '#ffd700', '#4ecdc4', '#ff8c42', '#95e1d3'][Math.floor(Math.random() * 5)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    document.querySelector('.story-container').appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 40);
+            }
+        }
+
+        // Trigger effects
+        setTimeout(createConfetti, 800);
+        setTimeout(() => {
+            const sparkleInterval = setInterval(createSparkle, 200);
+            setTimeout(() => clearInterval(sparkleInterval), 3000);
+        }, 1500);
+    </script>
+</body>
+</html>
