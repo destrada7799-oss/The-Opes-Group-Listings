@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtown Miami Price Update</title>
+    <style>
+        /* General Setup and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Changed font for an 'Urban Chic' feel */
+            overflow: hidden;
+        }
+
+        /* Story Container - Background and Layout */
+        .story-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            /* *** IMPORTANT: REPLACE THIS URL *** The URL you provided (https://ibb.co/dwfHr1hj) cannot be used directly.
+                Please replace 'https://i.postimg.cc/SNK4QdJz/urban-loft.jpg' with a direct link
+                to your image (e.g., from a service like Imgur or your own web host).
+            */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.55)),
+                        url('https://i.imgur.com/GwUO5pD.jpeg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px 30px 70px;
+        }
+
+        /* Header (Title) Styling */
+        .header {
+            text-align: center;
+            z-index: 2;
+            background: rgba(18, 18, 18, 0.6); /* Darker background for a modern look */
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .title {
+            font-size: 30px;
+            color: #ececec;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            font-weight: 500;
+        }
+
+        /* Price Banner Area (Center) */
+        .price-banner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* Badge Styling (PRICE UPDATE) */
+        .price-reduced-badge {
+            background: linear-gradient(135deg, #4ecdc4, #556270); /* Cooler, urban color scheme */
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            box-shadow: 0 8px 30px rgba(78, 205, 196, 0.5);
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Old Price Styling */
+        .old-price {
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: line-through;
+            margin-bottom: 15px;
+            animation: fadeOut 1s ease-in forwards;
+            animation-delay: 1s;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.9);
+            font-weight: 300;
+        }
+
+        /* New Price Styling */
+        .new-price {
+            font-size: 80px;
+            color: #ff6b6b; /* Accent color for the final price */
+            font-weight: 800;
+            text-shadow: 4px 4px 10px rgba(0,0,0,0.9);
+            animation: priceReveal 1.2s ease-out forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        /* Savings/Benefit Styling */
+        .savings {
+            background: rgba(255, 255, 255, 0.9);
+            color: #556270;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 25px;
+            display: inline-block;
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 2s;
+            opacity: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Info Grid (Bottom Left/Right) */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            z-index: 2;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 18px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animation Delays for Info Items */
+        .info-item:nth-child(1) { animation-delay: 2.5s; }
+        .info-item:nth-child(2) { animation-delay: 2.7s; }
+        .info-item:nth-child(3) { animation-delay: 2.9s; }
+        .info-item:nth-child(4) { animation-delay: 3.1s; }
+
+        .info-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background: linear-gradient(135deg, #ff8c42, #ff6b6b); /* Vibrant CTA color */
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(255, 107, 107, 0.5);
+            z-index: 2;
+            animation: fadeInUp 0.6s ease-out forwards;
+            animation-delay: 3.3s;
+            opacity: 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none; /* Ensure link style is removed */
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Reused Animation Keyframes from Original */
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateY(-20px) scale(0.8); }
+        }
+
+        @keyframes priceReveal {
+            0% { opacity: 0; transform: scale(0.5) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Decorative Elements (Confetti, Sparkles, Pulse) */
+        
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: fall 3s linear infinite;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 1.5s ease-in-out infinite;
+            box-shadow: 0 0 10px white;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0); box-shadow: 0 0 0 white; }
+            50% { opacity: 1; transform: scale(1); box-shadow: 0 0 15px white; }
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(78, 205, 196, 0.6);
+            border-radius: 50%;
+            animation: pulseRing 2s ease-out infinite;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes pulseRing {
+            0% { width: 200px; height: 200px; opacity: 1; }
+            100% { width: 400px; height: 400px; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="story-container">
+        <div class="header">
+            <h1 class="title">Urban Chic Loft Living in Downtown Miami</h1>
+        </div>
+
+        <div class="price-banner">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring" style="animation-delay: 1.8s;"></div>
+            <div class="price-reduced-badge">✨ PRICE UPDATE ✨</div>
+            <div class="old-price">$440,000</div>
+            <div class="new-price">$420,000</div>
+            <div class="savings">⬇️ Save $20,000!</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-icon">🏢</div>
+                <div class="info-value">1208</div>
+                <div class="info-label">Unit Number</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🛋️</div>
+                <div class="info-value">Loft</div>
+                <div class="info-label">Style</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🌇</div>
+                <div class="info-value">Downtown</div>
+                <div class="info-label">Location</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🚇</div>
+                <div class="info-value">Walkable</div>
+                <div class="info-label">Proximity</div>
+            </div>
+        </div>
+
+        <a href="https://opesre.com/properties/133-ne-2nd-ave-1208-miami-fl-us-33132-e3a42fb09be8479768a8f1e6ceb976da" target="_blank" class="cta-button">
+            CLICK HERE FOR FULL DETAILS
+        </a>
+    </div>
+
+    <script>
+        // Create sparkles around the new price
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            const banner = document.querySelector('.price-banner');
+            // Random position around the center banner
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 120 + Math.random() * 50;
+            sparkle.style.left = `calc(50% + ${Math.cos(angle) * radius}px)`;
+            sparkle.style.top = `calc(50% + ${Math.sin(angle) * radius}px)`;
+            sparkle.style.animationDelay = Math.random() * 1 + 's';
+            document.querySelector('.story-container').appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 1500);
+        }
+
+        // Create confetti (using a color scheme matching the new design)
+        function createConfetti() {
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    // Urban/Modern Confetti Colors
+                    confetti.style.backgroundColor = ['#ff6b6b', '#4ecdc4', '#556270', '#ff8c42', '#ffffff'][Math.floor(Math.random() * 5)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    document.querySelector('.story-container').appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 40);
+            }
+        }
+
+        // Trigger effects
+        setTimeout(createConfetti, 800);
+        setTimeout(() => {
+            const sparkleInterval = setInterval(createSparkle, 200);
+            setTimeout(() => clearInterval(sparkleInterval), 3000);
+        }, 1500);
+    </script>
+</body>
+</html>
