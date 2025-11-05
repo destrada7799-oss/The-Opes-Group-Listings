@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grande Condo Listing - Unit 307</title>
+    <style>
+        /* Base Setup - Sophisticated and clean */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background-color: #0b0b0b;
+        }
+
+        /* Story Container - With slow vertical parallax/scroll effect */
+        .story-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            /* Using the provided photo link: https://i.postimg.cc/GmKYwb9k/3.jpg */
+            background: linear-gradient(rgba(1, 19, 36, 0.7), rgba(1, 19, 36, 0.8)),
+                        url('https://i.postimg.cc/GmKYwb9k/3.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Crucial for scroll effect */
+            animation: slowScroll 60s linear infinite alternate; /* Slow parallax */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px 30px 70px;
+        }
+
+        /* Slow Parallax Background Animation */
+        @keyframes slowScroll {
+            0% { background-position: 50% 0; }
+            100% { background-position: 50% 100%; }
+        }
+
+        /* Header (Title) Styling */
+        .header {
+            text-align: center;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .title {
+            font-size: 30px;
+            color: #E0FFFF; /* Light Cyan/Aqua */
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(0, 179, 255, 0.7);
+            font-weight: 600;
+        }
+
+        /* Price Banner Area (Center) - FINAL ADJUSTMENT: top: 35% */
+        .price-banner {
+            position: absolute;
+            top: 30%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* Badge Styling */
+        .new-badge {
+            background: linear-gradient(135deg, #00B4D8, #0077B6); /* Deep Blue/Aqua */
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 30px rgba(0, 119, 182, 0.5);
+            animation: badgeZoom 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Featured Price Styling */
+        .featured-price {
+            font-size: 84px;
+            color: #FFD700; /* Gold accent */
+            font-weight: 900;
+            text-shadow: 4px 4px 10px rgba(0,0,0,0.9);
+            animation: priceReveal 1.2s ease-out forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        /* Subtle Location Callout */
+        .location-callout {
+            font-size: 18px;
+            color: #C0C0C0;
+            margin-top: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        /* Key Feature Grid (Bottom) - Five Columns for maximum impact */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 15px 10px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-top: 3px solid #00B4D8;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Animation Delays for Info Items */
+        .info-item:nth-child(1) { animation-delay: 1.5s; }
+        .info-item:nth-child(2) { animation-delay: 1.7s; }
+        .info-item:nth-child(3) { animation-delay: 1.9s; }
+        .info-item:nth-child(4) { animation-delay: 2.1s; }
+        .info-item:nth-child(5) { animation-delay: 2.3s; }
+
+        .info-icon {
+            font-size: 26px;
+            margin-bottom: 5px;
+            color: #0077B6;
+        }
+
+        .info-value {
+            font-size: 20px; /* Slightly smaller for 5 columns */
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .info-label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background: linear-gradient(135deg, #FFD700, #FFA500); /* Gold/Orange CTA */
+            color: #1a1a1a;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 800;
+            text-align: center;
+            box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6);
+            z-index: 2;
+            animation: fadeInUp 0.6s ease-out forwards;
+            animation-delay: 2.5s;
+            opacity: 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 35px rgba(255, 215, 0, 0.8);
+        }
+
+        /* --- Animations --- */
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes badgeZoom {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes priceReveal {
+            0% { opacity: 0; transform: scale(0.5) rotate(3deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="story-container">
+        <div class="header">
+            <h1 class="title">The Grande: Your Gateway to the Medical District</h1>
+        </div>
+
+        <div class="price-banner">
+            <div class="new-badge">LOCATION. LUXURY. LOW MAINTENANCE.</div>
+            <div class="featured-price">$479,000</div>
+            <div class="location-callout">Unit 307 | Steps from Baptist Hospital</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-icon">🛏️</div>
+                <div class="info-value">2 / 2</div>
+                <div class="info-label">Bedrooms / Baths</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📐</div>
+                <div class="info-value">1,142</div>
+                <div class="info-label">Living SQ FT</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🌟</div>
+                <div class="info-value">Renovated</div>
+                <div class="info-label">Wood Floors / Appliances</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🏊</div>
+                <div class="info-value">Pool & Gym</div>
+                <div class="info-label">Full Amenities</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🔒</div>
+                <div class="info-value">Gated Entry</div>
+                <div class="info-label">Security & Impact Windows</div>
+            </div>
+        </div>
+
+        <a href="https://opesre.com/properties/listing/SEF/A11908972/Miami/9021-SW-94th-St-307" target="_blank" class="cta-button">
+            VIEW INVESTMENT
+        </a>
+    </div>
+</body>
+</html>
