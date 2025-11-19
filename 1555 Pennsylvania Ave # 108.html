@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miami Beach Renovation Opportunity</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
+    <style>
+        /* Base Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif; 
+            overflow: hidden;
+        }
+
+        /* Story Container */
+        .story-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(rgba(20, 20, 20, 0.4), rgba(40, 40, 40, 0.7)),
+                        url('https://i.postimg.cc/xTgbv8HR/Chat-GPT-Image-Nov-19-2025-02-53-07-PM.jpg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px 30px 70px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.5); /* Darker background for better text contrast */
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid #FF8C00;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .title {
+            font-size: 32px;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,1); /* Strong shadow */
+            font-weight: 800;
+        }
+
+        /* Central Content */
+        .central-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            z-index: 5;
+            padding: 20px 0;
+        }
+
+        .new-badge {
+            background: linear-gradient(135deg, #FFD700, #FF8C00);
+            color: #333;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.6);
+            animation: pulseFade 1.5s infinite alternate, bounceIn 0.8s;
+            text-transform: uppercase;
+        }
+
+        .featured-price {
+            font-size: 90px;
+            color: #FFD700;
+            font-weight: 900;
+            text-shadow: 4px 4px 10px rgba(0,0,0,0.9);
+            animation: priceReveal 1.2s ease-out forwards;
+            animation-delay: 0.5s;
+            opacity: 0; /* Hidden initially */
+            transform: scale(0.5);
+        }
+
+        .location-callout {
+            font-size: 18px;
+            color: #FFFFFF;
+            font-weight: 600;
+            text-shadow: 1px 1px 5px rgba(0,0,0,1);
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 1s;
+            opacity: 0; /* Hidden initially */
+            background: rgba(0,0,0,0.5);
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            z-index: 2;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-bottom: 4px solid #00B4D8;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0; /* Hidden initially */
+        }
+
+        .info-item:nth-child(1) { animation-delay: 1.5s; }
+        .info-item:nth-child(2) { animation-delay: 1.7s; }
+        .info-item:nth-child(3) { animation-delay: 1.9s; }
+        .info-item:nth-child(4) { animation-delay: 2.1s; }
+
+        .info-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+            color: #FF8C00;
+        }
+
+        .info-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Buttons */
+        .cta-group {
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+            animation: fadeInUp 0.6s ease-out forwards;
+            animation-delay: 2.3s;
+            opacity: 0; /* Hidden initially */
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00B4D8, #4ECDC4);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(0, 180, 216, 0.7);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            flex: 1;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #777, #555);
+            color: white;
+            padding: 18px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            border: none;
+            white-space: nowrap;
+        }
+        .download-button:hover, .cta-button:hover { transform: scale(1.05); }
+
+        /* --- Animations --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes bounceIn { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes pulseFade { 0% { box-shadow: 0 0 0px rgba(255, 140, 0, 0.6); } 100% { box-shadow: 0 0 20px rgba(255, 140, 0, 0.9); } }
+        @keyframes priceReveal { 0% { opacity: 0; transform: scale(0.5) rotate(-3deg); } 100% { opacity: 1; transform: scale(1) rotate(0deg); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* === SNAPSHOT MODE (The Fix) === */
+        /* When this class is added, EVERYTHING becomes instantly visible */
+        body.capturing * {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        body.capturing .story-container {
+            /* Ensure background fits for capture */
+            height: 100vh; 
+            width: 100vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="story-container" id="capture-target">
+        <div class="header">
+            <h1 class="title">Your Miami Beach Renovation Dream Starts Here</h1>
+        </div>
+        
+        <div class="central-content">
+            <div class="new-badge">PRIME LOCATION | DEMO DONE!</div>
+            <div class="featured-price">$180,000</div>
+            <div class="location-callout">Moments from Lincoln Road & The Beach</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-icon">💰</div>
+                <div class="info-value">Rare Value</div>
+                <div class="info-label">Unbeatable Miami Beach Price</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🔨</div>
+                <div class="info-value">Blank Canvas</div>
+                <div class="info-label">Demolition Costs Saved</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🏖️</div>
+                <div class="info-value">Prime Spot</div>
+                <div class="info-label">Steps to Beach & Shopping</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📐</div>
+                <div class="info-value">428</div>
+                <div class="info-label">SQ FT (1 Bed / 1 Bath)</div>
+            </div>
+        </div>
+
+        <div class="cta-group">
+            <a href="#" target="_blank" class="cta-button">
+                REQUEST RENOVATION PLANS
+            </a>
+            <button class="download-button" onclick="downloadImage()">
+                🖼️ DOWNLOAD
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function downloadImage() {
+            // 1. Add the 'capturing' class to body to force everything visible
+            document.body.classList.add('capturing');
+
+            // 2. Hide the download button so it's not in the picture
+            const downloadBtn = document.querySelector('.download-button');
+            downloadBtn.style.display = 'none';
+
+            // 3. Capture
+            html2canvas(document.getElementById('capture-target'), {
+                allowTaint: true,
+                useCORS: true,
+                scale: 2,
+                scrollY: -window.scrollY // Handling scroll issues
+            }).then(canvas => {
+                // 4. Download
+                const link = document.createElement('a');
+                link.download = 'MiamiBeach_Renovation.png';
+                link.href = canvas.toDataURL();
+                link.click();
+
+                // 5. Cleanup (Reset everything)
+                document.body.classList.remove('capturing');
+                downloadBtn.style.display = 'block';
+            }).catch(err => {
+                console.error(err);
+                document.body.classList.remove('capturing');
+                downloadBtn.style.display = 'block';
+                alert("Error capturing image.");
+            });
+        }
+    </script>
+</body>
+</html>
