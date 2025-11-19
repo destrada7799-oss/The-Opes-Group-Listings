@@ -200,8 +200,7 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* === SNAPSHOT MODE (The Fix) === */
-        /* When this class is added, EVERYTHING becomes instantly visible */
+        /* === SNAPSHOT MODE === */
         body.capturing * {
             animation: none !important;
             transition: none !important;
@@ -209,7 +208,6 @@
             transform: none !important;
         }
         body.capturing .story-container {
-            /* Ensure background fits for capture */
             height: 100vh; 
             width: 100vw;
         }
@@ -223,7 +221,7 @@
         
         <div class="central-content">
             <div class="new-badge">PRIME LOCATION | DEMO DONE!</div>
-            <div class="featured-price">$180,000</div>
+            <div class="featured-price">$220,000</div>
             <div class="location-callout">Moments from Lincoln Road & The Beach</div>
         </div>
 
@@ -262,27 +260,21 @@
 
     <script>
         function downloadImage() {
-            // 1. Add the 'capturing' class to body to force everything visible
             document.body.classList.add('capturing');
-
-            // 2. Hide the download button so it's not in the picture
             const downloadBtn = document.querySelector('.download-button');
             downloadBtn.style.display = 'none';
 
-            // 3. Capture
             html2canvas(document.getElementById('capture-target'), {
                 allowTaint: true,
                 useCORS: true,
                 scale: 2,
-                scrollY: -window.scrollY // Handling scroll issues
+                scrollY: -window.scrollY 
             }).then(canvas => {
-                // 4. Download
                 const link = document.createElement('a');
                 link.download = 'MiamiBeach_Renovation.png';
                 link.href = canvas.toDataURL();
                 link.click();
 
-                // 5. Cleanup (Reset everything)
                 document.body.classList.remove('capturing');
                 downloadBtn.style.display = 'block';
             }).catch(err => {
